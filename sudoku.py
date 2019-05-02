@@ -23,7 +23,7 @@ class Sudoku(object):
 
         self.starttime = time.time()
         self.solve()
-
+        self.endtime = None
 
     def __str__(self):
         string = f'solved in {time.time() - self.starttime} seconds\n'
@@ -58,6 +58,7 @@ class Sudoku(object):
                     solved = False
 
         if solved:
+            self.endtime = time.time()
             return True
 
         if hung:
@@ -73,6 +74,7 @@ class Sudoku(object):
             for guess in guesses:
                 self.solved[row][col] = guess
                 if self.solve():
+                    self.endtime = time.time()
                     return True
                 else:
                     self.solved = self.copy(copy)
@@ -137,4 +139,5 @@ if __name__ == '__main__':
     # a = Sudoku('530070000600195000098000060800060003400803001700020006060000280000419005000080079')
     # a = Sudoku('100070030830600000002900608600004907090000050307500004203009100000002043040080009')
     a = Sudoku('009748000700000000020109000007000240064010590098000300000803020000000006000275900')
+    # a = Sudoku('0'*81)
     print(a)
